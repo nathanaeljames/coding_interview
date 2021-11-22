@@ -88,8 +88,8 @@ A dataset of all events on the calendars of all our users.
 3. Return schedules given ids
 4. Convert the schedule array into an int array by calculating the minutes since start date of each time entry
 5. Sort the schedule array from the earliest start time to the latest start time
-6. Calculate free times from array by checking the difference between the start date of each event and the end date of the previous event
-7. Remove any free times that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
+6. Calculate free times from array by checking the difference between the start datetime of each event and the end datetime of the previous event
+7. Remove or modify any free time slots that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
 8. Convert free times array into readable format and print output
 
 - You'll notice that all our events start and end on 15 minute blocks. However, this is not a strict
