@@ -126,8 +126,11 @@ def getFreeTimesAsInts(intTupleArray, hardcodedExceptions, startDate, endDate):
 
 
 def outputIntsAsDates(intTupleArray, startDate):
+    startTime = datetime.strptime('1990-01-01T00:00:00', '%Y-%m-%dT%H:%M:%S')
     for tuple in intTupleArray:
         baseTime = datetime.strptime(startDate, '%Y-%m-%dT%H:%M:%S')
+        if not startTime.strftime("%d") == (baseTime + timedelta(minutes=tuple[0])).strftime("%d"):
+            print("")
         startTime = baseTime + timedelta(minutes=tuple[0])
         endTime = baseTime + timedelta(minutes=tuple[1])
         print(startTime.strftime("%Y-%M-%d %H:%M"),
