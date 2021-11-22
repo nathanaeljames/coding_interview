@@ -83,14 +83,16 @@ A dataset of all events on the calendars of all our users.
   key parts of your code.
 
 ** My code used ther following approach
-* Collect usernames as user input, allowing for some variation in input style
-* Return ids given usernames
-* Return schedules given ids
-* Convert the schedule array into an int array by calculating the minutes since start date of each time entry.
-* Sort the schedule array from the earliest start time to the latest start time
-* Calculate free times from array by checking the difference between the start date of each event and the end date of the prevoious event
-* Remove any free times that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
-* Convert free times array into readable format and print output
+1. Collect usernames as user input, allowing for some variation in input style
+2. Return ids given usernames
+3. Return schedules given ids
+4. Convert the schedule array into an int array by calculating the minutes since start date of each time entry.
+5. Sort the schedule array from the earliest start time to the latest start time
+6. Calculate free times from array by checking the difference between the start date of each event and the end date of the prevoious event
+7. Remove any free times that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
+8. Convert free times array into readable format and print output
 
 - You'll notice that all our events start and end on 15 minute blocks. However, this is not a strict
   requirement. Events may start or end on any minute (for example, you may have an event from 13:26 - 13:54).
+
+** This program should produce accurate results down to the minute
