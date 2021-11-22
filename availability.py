@@ -21,8 +21,6 @@ allEvents = json.load(open("events.json"))
 allUsers = json.load(open("users.json"))
 
 #to get the id for one specified user
-
-
 def getId(candidate):
     userId = next((user['id'] for user in allUsers if user['name'].lower(
     ) == candidate.lower()), False)
@@ -33,16 +31,12 @@ def getId(candidate):
     return userId
 
 #to get the events for one specified user
-
-
 def getEvents(id):
     userEvents = [(event['start_time'], event['end_time'])
                   for event in allEvents if event['user_id'] == id]
     return userEvents
 
 #to get the ids for all specified users
-
-
 def getAllIds(candidateArray):
     allIds = []
     for candidate in candidateArray:
@@ -50,8 +44,6 @@ def getAllIds(candidateArray):
     return allIds
 
 #to get the events for all specified ids
-
-
 def getAllEvents(idArray):
     allEvents = []
     for id in idArray:
@@ -60,8 +52,6 @@ def getAllEvents(idArray):
     return allEvents
 
 #convert a date to an int (minutes since start time)
-
-
 def convertDateToInt(date, startDate):
     startFrom = datetime.strptime(startDate, '%Y-%m-%dT%H:%M:%S')
     countTo = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
@@ -69,8 +59,6 @@ def convertDateToInt(date, startDate):
     return dateAsInt
 
 #convert date array into int array (minutes since start time)
-
-
 def convertDatesToInts(dateTupleArray, startDate):
     intDateTupleArray = []
     for dateTuple in dateTupleArray:
@@ -80,8 +68,6 @@ def convertDatesToInts(dateTupleArray, startDate):
     return intDateTupleArray
 
 #calculate all free times
-
-
 def getFreeTimesAsInts(intTupleArray, hardcodedExceptions, startDate, endDate):
     allEventsArray = []  # all busy times for all users
     freeTimesArray = []  # may include out-of-range values
@@ -123,8 +109,6 @@ def getFreeTimesAsInts(intTupleArray, hardcodedExceptions, startDate, endDate):
     return cleanFreeTimesArray
 
 #convert back to readable date format
-
-
 def outputIntsAsDates(intTupleArray, startDate):
     startTime = datetime.strptime('1990-01-01T00:00:00', '%Y-%m-%dT%H:%M:%S')
     for tuple in intTupleArray:
