@@ -86,9 +86,9 @@ A dataset of all events on the calendars of all our users.
 1. Collect usernames as user input, allowing for some variation in input style
 2. Return ids given usernames
 3. Return schedules given ids
-4. Convert the schedule array into an int array by calculating the minutes since start date of each time entry.
+4. Convert the schedule array into an int array by calculating the minutes since start date of each time entry
 5. Sort the schedule array from the earliest start time to the latest start time
-6. Calculate free times from array by checking the difference between the start date of each event and the end date of the prevoious event
+6. Calculate free times from array by checking the difference between the start date of each event and the end date of the previous event
 7. Remove any free times that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
 8. Convert free times array into readable format and print output
 
