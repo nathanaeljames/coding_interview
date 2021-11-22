@@ -19,14 +19,13 @@ We can then schedule a meeting during any of those available times.
 
 # Instructions
 
-Given the data in `events.json` and `users.json`, build a script that displays available times
-for a given set of users. For example, your script might be executed like this:
+Given the data in `events.json` and `users.json`, you can find the available meeting times for a given set of users using the following syntax:
 
 ```
-python availability.py Maggie,Joe,Jordan
+python3 availability.py Maggie,Joe,Jordan
 ```
 
-and would output something like this:
+which would output something like this:
 
 ```
 2021-07-05 13:30 - 16:00
@@ -43,10 +42,7 @@ and would output something like this:
 ```
 
 
-For the purposes of this exercise, you should restrict your search between `2021-07-05` and `2021-07-07`,
-which are the three days covered in the `events.json` file. You can also assume working hours between
-`13:00` and `21:00` UTC, which is 9-5 Eastern (don't worry about any time zone conversion, just work in
-UTC). Optionally, you could make your program support configured working hours, but this is not necessary.
+Working hours are between 13:00 and 21:00 UTC
 
 
 ## Data files
@@ -76,9 +72,19 @@ A dataset of all events on the calendars of all our users.
 # Notes
 
 - Feel free to use whatever language you feel most comfortable working with
-* I used python because it seemed to provide the simplest and most portable solution for a problem like this
+** I used python because it seemed to provide the simplest and most portable solution for a problem like this
 - Please provide instructions for execution of your program
+** Provided above
 - Please include a description of your approach to the problem, as well as any documentation about
   key parts of your code.
+** My code used ther following approach
+* Collect usernames as user input, allowing for some variation in input style
+* Return ids given usernames
+* Return schedules given ids
+* Convert the schedule array into an int array by calculating the minutes since start date of each time entry.
+* Sort the schedule array from the earliest start time to the latest start time
+* Calculate free times from array by checking the difference between the start date of each event and the end date of the prevoious event
+* Remove any free times that might fall outside of the specified time range (this doesn't seem to exist in the provided data but would likely exist in the real world)
+* Convert free times array into readable format and print output
 - You'll notice that all our events start and end on 15 minute blocks. However, this is not a strict
   requirement. Events may start or end on any minute (for example, you may have an event from 13:26 - 13:54).
