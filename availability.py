@@ -1,13 +1,15 @@
 import sys
 import json
+import datetime
 from datetime import datetime, timedelta
 
 #hard-coded variables
 startDate = '2021-07-05T13:00:00'
 endDate = '2021-07-07T21:00:00'
-# e.g. office closures, holidays
-hardcodedExceptions = [('2021-07-05T21:00:00', '2021-07-06T13:00:00'),
-                       ('2021-07-06T21:00:00', '2021-07-07T13:00:00')]
+clockIn = '13:00:00'
+clockOut = '21:00:00'
+# e.g. office closures, holidays (enter as tuples)
+hardcodedExceptions = []
 
 #sanitize user input and store in candidates array
 candidates = []
@@ -19,6 +21,20 @@ for arg in sys.argv[1:]:
 #load events and users object from json
 allEvents = json.load(open("events.json"))
 allUsers = json.load(open("users.json"))
+
+#function to add off hours ranges to hardcoded exceptions array
+def excludeOffHours(startDate, endDate, clockIn, clockOut, exceptionArray):
+    startDateDate = datetime.strptime(startDate, '%Y-%m-%dT%H:%M:%S')
+    endDateDate = datetime.strptime(endDate, '%Y-%m-%dT%H:%M:%S')
+    noOfDays = endDateDate.day - startDateDate.day
+    i = 0
+    while i < noOfDays:
+        todayClockOut = startDateDate.strftime('%Y-%m-%d')+"T"+clockOut
+        startDateDate = startDateDate + timedelta(days=1)
+        tomorrowClockIn = startDateDate.strftime('%Y-%m-%d')+"T"+clockIn
+        exceptionArray.append((todayClockOut,tomorrowClockIn))
+        i += 1
+    return exceptionArray
 
 #to get the id for one specified user
 def getId(candidate):
@@ -117,8 +133,7 @@ def outputIntsAsDates(intTupleArray, startDate):
             print("")
         startTime = baseTime + timedelta(minutes=tuple[0])
         endTime = baseTime + timedelta(minutes=tuple[1])
-        print(startTime.strftime("%Y-%M-%d %H:%M"),
-              "-", endTime.strftime("%H:%M"))
+        print(startTime.strftime("%Y-%M-%d %H:%M"),"-", endTime.strftime("%H:%M"))
     return
 
 
@@ -129,8 +144,8 @@ def main():
         sys.exit()
 
     allEventTimes = getAllEvents(getAllIds(candidates))
-    allFreeTimesAsInts = getFreeTimesAsInts(
-        allEventTimes, hardcodedExceptions, startDate, endDate)
+    excludeOffHours(startDate, endDate, clockIn, clockOut, hardcodedExceptions)
+    allFreeTimesAsInts = getFreeTimesAsInts(allEventTimes, hardcodedExceptions, startDate, endDate)
     print("---------------------------")
     print("Users ", end=" ")
     for candidate in candidates:
